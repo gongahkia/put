@@ -1,6 +1,7 @@
 # FUA
 # - implement escape from editor key
 # - implement vim key binds
+# - handle cursor movement
 
 import curses
 
