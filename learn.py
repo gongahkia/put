@@ -12,8 +12,10 @@ curses.noecho() # stops automatic echoing of keypresses to screen
 curses.cbreak() # react to keypresses without need for enter key
 stdscr.keypad(True) # enables other keys like arrow keys to be registered as keypresses
 window.addstr(0,0,"shitass")
+window.clear() # can be used to prevent odd screen artifacting after the screen refreshes, but leaves a weird screen resetting observed
+window.erase() # USE THIS INSTEAD! Produces the desired effect as .clear() without the odd screen clearing observed
 window.refresh() # refresh the display view window to reflect changes
-key = stdscr.getch() # takes in user input
+key = stdscr.getch() # takes in user input, returns the ASCII value of the character
 
 # boilerplate to exit the window
 curses.nocbreak()
