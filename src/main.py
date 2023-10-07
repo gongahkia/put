@@ -1,7 +1,16 @@
-# FUA:
-#   - watch entire playthrough of curses playlist by techwithtim here at https://youtu.be/Db4oc8qc9RU?si=vttv0z0YC23QDYEW
-# - try write a text editor similar to https://youtu.be/UcE9yelzgD8?si=VmGrJxRxUa3tCIx2
-# - try to opitmise it by writing it under 50 lines like him!
-
 import curses
 
+# main-event loop
+def main(stdscr):
+    text_buffer:str = ""
+    curses.curs_set(1)
+    stdscr.addstr(0,0,text_buffer)
+    stdscr.refresh()
+    char_buffer = stdscr.getch()
+    text_buffer += char_buffer
+    if char_buffer == "!":
+        curses.endwin()
+    # add code here, just want keypress to translate to text on screen for now
+
+if __name__ == "__main__":
+    curses.wrapper(main)
