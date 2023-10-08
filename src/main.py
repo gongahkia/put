@@ -40,16 +40,45 @@
 # ----------
 
 # required imports
-from enum import Enum
 import curses
-import time
 
 # ----------
 
+def get_file_name(stdscr):
+    file_name:str = ""
+    curses.echo() # enables input echoing
+    while True:
+        stdscr.erase()
+        stdscr.addstr(0,0,f"Enter file name: {file_name}_")
+        stdscr.refresh()
+        name_buffer = stdscr.getch()
+        if name_buffer == curses.KEY_BACKSPACE: # backspace
+            file_name = file_name[:-1]
+        elif name_buffer == curses.KEY_ENTER or name_buffer == 10: # enter
+            break
+        elif name_buffer == ord("\t") or name_buffer == 9: # tab
+            file_name += "\t"
+        elif name_buffer == curses.KEY_UP or name_buffer == curses.KEY_DOWN or name_buffer == curses.KEY_LEFT or name_buffer == curses.KEY_RIGHT:
+            pass
+        else:
+            file_name += chr(name_buffer)
+    return file_name
+
 def main(stdscr):
-    file_name:str = "" # FUA: initial file name, later when able to edit existing files, add that value to this variable
+    file_name:str = "" 
     text_buffer:str = ""
     curses.curs_set(0) # hide cursor
+
+    file_name = get_file_name(stdscr)
+
+    fhand = open(file_name, "r")
+    text_buffer = fhand.read()
+    fhand.close()
+
+    stdscr.erase()
+    stdscr.addstr(0,15,"PUT --> Press <esc> to save changes.")
+    stdscr.addstr(2,0,f"{text_buffer}_")
+    stdscr.refresh() 
 
     while True:
 
@@ -67,13 +96,10 @@ def main(stdscr):
                     if file_name_buffer == curses.KEY_BACKSPACE: # backspace
                         file_name = text_buffer[:-1]
                     elif file_name_buffer == curses.KEY_ENTER or file_name_buffer == 10: # enter
-                        fhand = open(f"{file_name}.txt", "w")
-                        fhand.write(text_buffer)
-                        fhand.close()
                         break
-                    elif file_name_buffer == ord("\t"): # tab
+                    elif file_name_buffer == ord("\t") or file_name_buffer == 9: # tab
                         file_name += "\t"
-                    elif file_name_buffer == curses.KEY_UP or char_buffer == curses.KEY_DOWN or char_buffer == curses.KEY_LEFT or char_buffer == curses.KEY_RIGHT:
+                    elif file_name_buffer == curses.KEY_UP or file_name_buffer == curses.KEY_DOWN or file_name_buffer == curses.KEY_LEFT or file_name_buffer == curses.KEY_RIGHT:
                         pass
                     else:
                         file_name += chr(file_name_buffer)
@@ -81,13 +107,16 @@ def main(stdscr):
                     stdscr.addstr(0,15,f"File name: {file_name}_")
                     stdscr.addstr(2,0,f"{text_buffer}_")
                     stdscr.refresh() 
+            fhand = open(file_name, "w")
+            fhand.write(text_buffer)
+            fhand.close()
             break
             
         elif char_buffer == curses.KEY_BACKSPACE: # backspace
             text_buffer = text_buffer[:-1]
         elif char_buffer == curses.KEY_ENTER or char_buffer == 10: # enter
             text_buffer += "\n"
-        elif char_buffer == ord("\t"): # tab
+        elif char_buffer == ord("\t") or char_buffer == 9: # tab
             text_buffer += "\t"
         elif char_buffer == curses.KEY_UP or char_buffer == curses.KEY_DOWN or char_buffer == curses.KEY_LEFT or char_buffer == curses.KEY_RIGHT:
             pass
@@ -95,7 +124,7 @@ def main(stdscr):
             text_buffer += chr(char_buffer)
 
         stdscr.erase()
-        stdscr.addstr(0,15,"Insert mode")
+        stdscr.addstr(0,15,"PUT --> Press <esc> to save changes.")
         stdscr.addstr(2,0,f"{text_buffer}_")
         stdscr.refresh() 
 

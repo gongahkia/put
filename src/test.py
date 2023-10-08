@@ -3,4 +3,4 @@
     # - eventually move this file out to another file directory as well, /src should b clean
 
 
-print("just testing things out")
+print("just testing this text editor out and writing some test cases ya know?")
