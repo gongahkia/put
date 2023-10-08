@@ -71,9 +71,12 @@ def main(stdscr):
 
     file_name = get_file_name(stdscr)
 
-    fhand = open(file_name, "r")
-    text_buffer = fhand.read()
-    fhand.close()
+    try:
+        fhand = open(file_name, "r")
+        text_buffer = fhand.read()
+        fhand.close()
+    except:
+        pass
 
     stdscr.erase()
     stdscr.addstr(0,15,"PUT --> Press <esc> to save changes.")
