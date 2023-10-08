@@ -6,3 +6,5 @@
 print("just testing this text editor out and writing some test cases ya know?")
 
 print("ok lah thank you lmao")
+
+print("and yes okay thank you :)")

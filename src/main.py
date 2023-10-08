@@ -1,6 +1,6 @@
 # FUA
-# - handle scrolling screen
 # - handle cursor movement
+# - handle scrolling screen
 # - handle opening of file from CLI using a `put` command
 
 # vim time :)
