@@ -3,10 +3,9 @@
 # - handle scrolling screen
 # - handle opening of file from CLI using a `put` command
 
-# vim time :)
-
-# - implement modes using enums 
-    # use match case statement to determine current mode of editor
+# - vim time :)
+    # - implement modes using enums 
+        # use match case statement to determine current mode of editor
 """class mode(Enum):
     Command = 1
     Normal = 2
@@ -52,7 +51,7 @@ def get_file_name(stdscr):
         stdscr.addstr(0,0,f"Enter file name: {file_name}_")
         stdscr.refresh()
         name_buffer = stdscr.getch()
-        if name_buffer == curses.KEY_BACKSPACE: # backspace
+        if name_buffer == curses.KEY_BACKSPACE or name_buffer == 127: # backspace
             file_name = file_name[:-1]
         elif name_buffer == curses.KEY_ENTER or name_buffer == 10: # enter
             break
@@ -96,7 +95,7 @@ def main(stdscr):
                 stdscr.refresh() 
                 while True:
                     file_name_buffer = stdscr.getch()
-                    if file_name_buffer == curses.KEY_BACKSPACE: # backspace
+                    if file_name_buffer == curses.KEY_BACKSPACE or file_name_buffer == 127: # backspace
                         file_name = text_buffer[:-1]
                     elif file_name_buffer == curses.KEY_ENTER or file_name_buffer == 10: # enter
                         break
@@ -115,7 +114,7 @@ def main(stdscr):
             fhand.close()
             break
             
-        elif char_buffer == curses.KEY_BACKSPACE: # backspace
+        elif char_buffer == curses.KEY_BACKSPACE or char_buffer == 127: # backspace
             text_buffer = text_buffer[:-1]
         elif char_buffer == curses.KEY_ENTER or char_buffer == 10: # enter
             text_buffer += "\n"
