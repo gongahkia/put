@@ -4,4 +4,4 @@ A simple terminal text editor written in Python using the [curses module](https:
 
 ## PUT editing a src file
 
-https://github.com/gongahkia/put/assets/117062305/133fba04-151a-4d30-8798-96c0d7edf018
+[![](https://asciinema.org/a/rvRQNAsrvdZEvZeTsyk9Jq0yn.svg)](https://asciinema.org/a/rvRQNAsrvdZEvZeTsyk9Jq0yn)
